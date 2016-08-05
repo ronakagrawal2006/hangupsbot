@@ -1,8 +1,8 @@
 {
   "admins": ["USER1_ID", "USER2_ID"],
   "autoreplies": [
-    [["hi", "hello"], "Hello world!"],
-    [["bot"], "At your service!"]
+    [["hi", "hello"], "Hello world11!"],
+    [["bot"], "At your service11!"]
   ],
   "autoreplies_enabled": true,
   "commands_admin": ["quit", "config"],

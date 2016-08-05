@@ -1,4 +1,5 @@
 import os, glob, logging, itertools, asyncio
+from pprint import pprint
 
 import hangups
 from hangups.ui.utils import get_conv_name
@@ -11,6 +12,7 @@ class StopEventHandling(Exception):
 
 class ConversationEvent:
     """Cenversation event wrapper"""
+
     def __init__(self, bot, conv_event):
         self.conv_event = conv_event
         self.conv_id = conv_event.conversation_id
@@ -33,12 +35,14 @@ class ConversationEvent:
 
 class EventHandler:
     """Register event handlers"""
+
     def __init__(self):
         self.handlers = []
         self.counter = itertools.count()
 
     def register(self, *args, priority=10, event=None):
         """Decorator for registering event handler"""
+
         def wrapper(func):
             # Automatically wrap handler function in coroutine
             func = asyncio.coroutine(func)
@@ -60,7 +64,9 @@ class EventHandler:
         wrapped_event = ConversationEvent(bot, event)
         if logging.root.level == logging.DEBUG:
             wrapped_event.print_debug()
-
+        print("Self Handlers")
+        pprint(self.handlers)
+        print("WrappedEventText:" + wrapped_event.text)
         # Don't handle event if it is produced by bot
         if wrapped_event.user.is_self:
             return

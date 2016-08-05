@@ -35,11 +35,15 @@ def help(bot, event, cmd=None, *args):
     yield from event.conv.send_message(text_to_segments(text))
 
 
-@command.register
+@command.register(admin=False)
 def ping(bot, event, *args):
     """Let's play ping pong!"""
-    yield from event.conv.send_message(text_to_segments('pong'))
+    yield from event.conv.send_message(text_to_segments('pongDirectInstall'))
 
+@command.register
+def test(bot, event, *args):
+    """Let's play ping pong!"""
+    yield from event.conv.send_message(text_to_segments('pong1234567'))
 
 @command.register
 def echo(bot, event, *args):
