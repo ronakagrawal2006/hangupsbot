@@ -4,6 +4,8 @@ from pprint import pprint
 import hangups
 from hangups.ui.utils import get_conv_name
 
+from hangupsbot.handlers.Glados import Glados
+
 
 class StopEventHandling(Exception):
     """Raise to stop handling of current event by other handlers"""
@@ -84,7 +86,6 @@ class EventHandler:
 
 # Create EventHandler singleton
 handler = EventHandler()
-
 # Build list of handlers
 _plugins = glob.glob(os.path.join(os.path.dirname(__file__), "*.py"))
 __all__ = [os.path.splitext(os.path.basename(f))[0] for f in _plugins

@@ -1,10 +1,8 @@
 {
   "admins": ["USER1_ID", "USER2_ID"],
   "autoreplies": [
-    [["hi", "hello"], "Hello world11!"],
-    [["bot"], "At your service11!"]
   ],
-  "autoreplies_enabled": true,
+  "autoreplies_enabled": false,
   "commands_admin": ["quit", "config"],
   "commands_enabled": true,
   "commands_aliases": ["/bot", "/hal", "/cylon", "/skynet", "/terminator"],

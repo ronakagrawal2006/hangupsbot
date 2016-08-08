@@ -2,8 +2,8 @@ import re
 
 import hangups
 
+from hangupsbot.handlers import Glados, handler
 from hangupsbot.utils import word_in_text, text_to_segments
-from hangupsbot.handlers import handler
 
 
 def find_keyword(kw, text):
@@ -24,12 +24,13 @@ def handle_autoreply(bot, event):
     # Test if message is not empty
     if not event.text:
         return
-
+    print("HANDLE AUTO REPLY")
     # Test if autoreplies are enabled
     if not bot.get_config_suboption(event.conv_id, 'autoreplies_enabled'):
         return
 
     # Test if there are actually any autoreplies
+    return
     autoreplies_list = bot.get_config_suboption(event.conv_id, 'autoreplies')
     if not autoreplies_list:
         return
@@ -48,7 +49,10 @@ def handle_all_chat_messages(bot, event):
     if not event.text:
         return
     print("UserName:" + event.user.full_name)
-    yield from event.conv.send_message(text_to_segments("text received: " + event.text))
+    help_agent=Glados()
+    answer = help_agent.get_help(event.text)
+    print(answer)
+    yield from event.conv.send_message(text_to_segments(answer))
     return
     # Test if autoreplies are enabled
     if not bot.get_config_suboption(event.conv_id, 'autoreplies_enabled'):
