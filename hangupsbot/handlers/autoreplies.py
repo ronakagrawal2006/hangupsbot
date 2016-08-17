@@ -42,6 +42,9 @@ def handle_autoreply(bot, event):
                 yield from event.conv.send_message(text_to_segments(sentence))
                 break
 
+def is_valid_mail (mail):
+    regex = '^[0-9]{5,}@thoughtworks.com$'
+    return True if re.match(regex, mail) else False
 
 @handler.register(priority=6, event=hangups.ChatMessageEvent)
 def handle_all_chat_messages(bot, event):
@@ -49,8 +52,11 @@ def handle_all_chat_messages(bot, event):
     # Test if message is not empty
     if not event.text:
         return
-    print("UserName:" + event.user.full_name)
-    response = requests.post("http://localhost:4000/api/help", {"text": event.text})
+
+    user_emails = event.user.emails
+    employee_id = next((mail for mail in user_emails if is_valid_mail(mail)), None).split("@")[0]
+
+    response = requests.post("http://localhost:4000/api/help", {"text": event.text, "ID": employee_id})
     answer = response.json()['answer']
     yield from event.conv.send_message(text_to_segments(answer))
     return
