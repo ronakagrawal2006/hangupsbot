@@ -4,7 +4,6 @@ from pprint import pprint
 import hangups
 from hangups.ui.utils import get_conv_name
 
-from hangupsbot.handlers.Glados import Glados
 
 
 class StopEventHandling(Exception):

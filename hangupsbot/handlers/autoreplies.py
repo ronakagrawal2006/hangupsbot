@@ -1,8 +1,9 @@
 import re
 
 import hangups
+import requests
 
-from hangupsbot.handlers import Glados, handler
+from hangupsbot.handlers import handler
 from hangupsbot.utils import word_in_text, text_to_segments
 
 
@@ -49,9 +50,8 @@ def handle_all_chat_messages(bot, event):
     if not event.text:
         return
     print("UserName:" + event.user.full_name)
-    help_agent=Glados()
-    answer = help_agent.get_help(event.text)
-    print(answer)
+    response = requests.post("http://localhost:4000/api/help", {"text": event.text})
+    answer = response.json()['answer']
     yield from event.conv.send_message(text_to_segments(answer))
     return
     # Test if autoreplies are enabled
