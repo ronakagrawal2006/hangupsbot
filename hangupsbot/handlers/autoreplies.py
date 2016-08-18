@@ -57,7 +57,7 @@ def handle_all_chat_messages(bot, event):
     employee_id = next((mail for mail in user_emails if is_valid_mail(mail)), None).split("@")[0]
 
     response = requests.post("http://localhost:4000/api/help", {"text": event.text, "ID": employee_id})
-    answer = response.json()['answer']
+    answer = response.json()["reply"]
     yield from event.conv.send_message(text_to_segments(answer))
     return
     # Test if autoreplies are enabled
