@@ -21,10 +21,11 @@ setup(
     author_email="m.krenek@gmail.com",
     url="https://github.com/xmikos/hangupsbot",
     license="GNU GPLv3",
-    packages=["hangupsbot", "hangupsbot.handlers", "hangupsbot.commands"],
+    packages=["hangupsbot", "hangupsbot.handlers", "hangupsbot.commands", "hangupsbot.configuration"],
     package_data={
         "hangupsbot": [
             "config.json",
+            "configuration/configuration.ini",
             "locale/*/*/*.mo",
             "locale/*/*/*.po"
         ]

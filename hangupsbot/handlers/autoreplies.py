@@ -3,6 +3,7 @@ import re
 import hangups
 import requests
 
+from hangupsbot.configuration.properties import Properties
 from hangupsbot.handlers import handler
 from hangupsbot.utils import text_to_segments
 
@@ -15,6 +16,7 @@ def is_valid_mail (mail):
 @handler.register(priority=6, event=hangups.ChatMessageEvent)
 def handle_all_chat_messages(bot, event):
     # Test if message is not empty
+    properties = Properties()
     if not event.text:
         return
 
@@ -23,7 +25,7 @@ def handle_all_chat_messages(bot, event):
 
     if valid_email:
         employee_id = valid_email.split("@")[0]
-        response = requests.post("http://localhost:4000/api/help", {"text": event.text, "ID": employee_id})
+        response = requests.post(properties.get_string("api.help.urllink"), {"text": event.text, "ID": employee_id})
         answer = response.json()["reply"]
     else:
         answer = "I can't recognise you. Kindly consult the admin team."
